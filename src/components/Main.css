@@ -1,0 +1,23 @@
+.title {
+    margin-top: 0;
+    padding-top: 1rem;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    background: rgba(11,86,139,0.25);
+    border-radius: 6px;
+    color: white;
+    padding: 9px 15px;
+}
+
+.add-button {
+    position: absolute !important;
+    bottom: 10rem;
+    right: 10rem;
+    color: #795548 !important;
+}
+
+
+.add-button .MuiSvgIcon-root {
+    font-size: 4.5rem !important;
+}
+

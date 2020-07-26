@@ -1,0 +1,13 @@
+.primary-line {
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+}
+
+.secondary-line {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1rem;
+    font-size: small;
+    color: #065b9e;
+}

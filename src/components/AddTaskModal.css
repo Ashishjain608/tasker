@@ -1,0 +1,15 @@
+.modal-close-button {
+    position: absolute !important;
+    right: 0px;
+    top: 0px;
+}
+
+.dialog-content {
+    line-height: 6;
+}
+
+.deadline-div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
