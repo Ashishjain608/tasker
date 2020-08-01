@@ -4,12 +4,16 @@
     top: 0px;
 }
 
-.dialog-content {
-    line-height: 6;
+.form-item-div {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 }
 
-.deadline-div {
+#formId {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: column;
+}
+
+#formId > div {
+    flex: 1 100px;
 }

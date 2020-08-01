@@ -11,3 +11,8 @@
     font-size: small;
     color: #065b9e;
 }
+
+.task-item {
+    padding: 1rem;
+    border-bottom: 1px solid blueviolet;
+}

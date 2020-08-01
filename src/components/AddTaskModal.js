@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -7,26 +7,35 @@ import {
   Button,
   IconButton,
   TextField,
-  MenuItem,
   FormLabel,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import "./AddTaskModal.css";
 
 const AddTaskModal = (props) => {
   const { visible, createTask, onDismiss } = props;
+  const [prioValue, setPrioValue] = useState("medium");
   const onSubmit = (e) => {
     // debugger;
     e.preventDefault();
-    const form = e.currentTarget;
-    let formValues = {};
-    for (let i = 0; i < 3; i++) {
-      formValues[i === 1 ? "priority" : form[i].id] = form[i].value;
-    }
-    formValues.deadlineDate = formValues.deadlineDate ?  new Date(formValues.deadlineDate).getTime() : null;
-    formValues.createdOn = new Date().getTime();
-    console.log(formValues); //description, priority, createdOn, deadlineDate
-    createTask(formValues);
+    const description = document.getElementById("description").value;
+    // const priority = document.getElementById('priorityRadioGroup').value;
+    const deadlineDate = new Date(
+      document.getElementById("deadlineDate").value
+    );
+    createTask({
+      description,
+      priority: prioValue,
+      deadlineDate: isNaN(deadlineDate) ? null : deadlineDate.getTime(),
+      createdOn: new Date().getTime()
+    });
+  };
+
+  const handleRadioChange = (event) => {
+    setPrioValue(event.target.value);
   };
 
   return (
@@ -41,7 +50,7 @@ const AddTaskModal = (props) => {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent dividers className="dialog-content">
+      <DialogContent dividers>
         <form id="formId" onSubmit={onSubmit}>
           <TextField
             autoFocus
@@ -52,20 +61,39 @@ const AddTaskModal = (props) => {
             fullWidth
             required
           />
-          <TextField
-            required
-            fullWidth
-            select
-            label="Priority"
-            id="priority"
-            helperText="Please select a priority"
-          >
-            <MenuItem value="high">High Priority</MenuItem>
-            <MenuItem value="medium">Medium Priority</MenuItem>
-            <MenuItem value="low">Low Priority</MenuItem>
-          </TextField>
-          <div className="deadline-div">
-            <FormLabel>Deadline Date:</FormLabel>
+          <div className="form-item-div">
+            <FormLabel required>Priority</FormLabel>
+            <RadioGroup
+              id="priorityRadioGroup"
+              required
+              row
+              name="position"
+              value={prioValue}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel
+                value="high"
+                control={<Radio color="secondary" />}
+                label="High"
+                labelPlacement="top"
+              />
+              <FormControlLabel
+                value="medium"
+                control={<Radio color="default" />}
+                label="Medium"
+                labelPlacement="top"
+              />
+              <FormControlLabel
+                value="low"
+                control={<Radio color="primary" />}
+                label="Low"
+                labelPlacement="top"
+              />
+            </RadioGroup>
+          </div>
+
+          <div className="form-item-div">
+            <FormLabel>Deadline Date</FormLabel>
             <TextField id="deadlineDate" type="date" margin="dense" />
           </div>
         </form>
