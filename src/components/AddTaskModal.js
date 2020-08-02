@@ -30,7 +30,6 @@ const AddTaskModal = (props) => {
       description,
       priority: prioValue,
       deadlineDate: isNaN(deadlineDate) ? null : deadlineDate.getTime(),
-      createdOn: new Date().getTime()
     });
   };
 

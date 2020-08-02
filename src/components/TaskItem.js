@@ -17,7 +17,7 @@ const TaskItem = (props) => {
   });
 
   // debugger;
-  const { prio, description, createdOn, deadlineDate } = props;
+  const { prio, description, createdAt, deadlineDate } = props;
   const taskIcon =
     prio === "high"
       ? highPrioIcon
@@ -36,7 +36,7 @@ const TaskItem = (props) => {
         </IconButton>
       </div>
       <div className="secondary-line">
-        <span>Created on: {new Date(createdOn).toDateString()}</span>
+        <span>Created on: {new Date(createdAt).toDateString()}</span>
         {deadlineDate && (
           <span>Deadline: {new Date(deadlineDate).toDateString()}</span>
         )}

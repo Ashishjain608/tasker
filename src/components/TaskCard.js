@@ -15,7 +15,7 @@ const TaskCard = (props) => {
               prio={itm.priority}
               deadlineDate={itm.deadlineDate}
               description={itm.description}
-              createdOn={itm.createdOn}
+              createdAt={itm.createdAt}
             />
           ))}
         </CardContent>

@@ -1,39 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import TaskCard from "./TaskCard";
 import { Container, IconButton } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import "./Main.css";
 import AddTaskModal from "./AddTaskModal";
+import TaskHandler from "../api/TaskHandler";
+const GENERIC_ERROR = "Some error happened. Pleas try again later.";
 
-const Main = (props) => {
+const Main = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showError, setShowError] = useState(false);
   const [highTasks, setHighTasks] = useState([]);
   const [mediumTasks, setMediumTasks] = useState([]);
   const [lowTasks, setLowTasks] = useState([]);
+
+  const fetchTasks = useCallback(() => {
+    TaskHandler.getAllTasks()
+      .then((res) => {
+        setTasks(res.data.data);
+      })
+      .catch((err) => {
+        setShowError(true);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [fetchTasks]);
+
+  const setTasks = (data) => {
+    let highAr = [],
+      midArr = [],
+      lowArr = [];
+    for (let i = 0; i < data.length; i++) {
+      let itm = data[i];
+      if (itm.priority === "high") {
+        highAr.push(itm);
+      } else if (itm.priority === "medium") {
+        midArr.push(itm);
+      } else if (itm.priority === "low") {
+        lowArr.push(itm);
+      }
+    }
+    setHighTasks(highAr);
+    setMediumTasks(midArr);
+    setLowTasks(lowArr);
+  };
+
   const onAddTask = () => setShowModal(true);
 
   const onDismiss = () => setShowModal(false);
 
   const createTask = (data) => {
-    // /description, priority, createdOn, deadlineDate
-    // debugger;
-    const priority = data.priority;
-    const setTasks =
-      priority === "high"
-        ? setHighTasks
-        : priority === "medium"
-        ? setMediumTasks
-        : priority === "low"
-        ? setLowTasks
-        : "";
-
-    setTasks((t) => {
-      // t.push(data);
-      let arr = [].concat(t);
-      arr.push(data);
-      return arr;
-    });
-    setShowModal(false);
+    data.completed = false;
+    if (!data.deadlineDate) {
+      delete data.deadlineDate;
+    }
+    TaskHandler.createTask(data)
+      .then((res) => {
+        fetchTasks();
+        setShowModal(false);
+      })
+      .catch((err) => {
+        setShowModal(false);
+      });
   };
 
   return (
@@ -41,8 +72,11 @@ const Main = (props) => {
       <div className="title">
         <h3>Tasker</h3>
       </div>
+      {showError && <Alert severity="error">{GENERIC_ERROR}</Alert>}
       <div>
         <TaskCard taskList={highTasks} title="High Prio" />
+        <TaskCard taskList={mediumTasks} title="Medium Prio" />
+        <TaskCard taskList={lowTasks} title="Low Prio" />
       </div>
       <IconButton
         onClick={onAddTask}
