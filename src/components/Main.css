@@ -1,23 +1,51 @@
 .title {
-    margin-top: 0;
-    padding-top: 1rem;
-    font-size: 1.25rem;
-    letter-spacing: 1px;
-    background: rgba(11,86,139,0.25);
-    border-radius: 6px;
-    color: white;
-    padding: 9px 15px;
+  margin-top: 0;
+  padding-top: 1rem;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  background: rgba(11, 86, 139, 0.25);
+  border-radius: 6px;
+  color: white;
+  padding: 9px 15px;
 }
 
 .add-button {
-    position: absolute !important;
-    bottom: 10rem;
-    right: 10rem;
-    color: #795548 !important;
+  position: absolute !important;
+  top: 0;
+  right: 6rem;
+  color: #795548 !important;
 }
-
 
 .add-button .MuiSvgIcon-root {
-    font-size: 4.5rem !important;
+  font-size: 4.5rem !important;
 }
 
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.card-container div:last-child {
+  grid-column: 1/4 !important;
+}
+
+.card-content {
+  max-height: 20rem;
+  overflow: auto;
+  padding: 8px !important;
+}
+
+.card-header {
+  padding: 5px 0 5px 0 !important;
+  border-bottom: 1px solid brown;
+  background-color: antiquewhite;
+}
+
+.font-header-high {
+  color: mediumvioletred;
+}
+.font-header-low {
+  color: #1e8c1e;
+}

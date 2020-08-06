@@ -4,12 +4,24 @@ import TaskItem from "./TaskItem";
 
 const TaskCard = (props) => {
   const { title, taskList } = props;
-  console.log('taskList', taskList);
+  console.log("taskList", taskList);
+  const type = title.includes("High")
+    ? "high"
+    : title.includes("Medium")
+    ? "medium"
+    : title.includes("Low")
+    ? "low"
+    : title.includes("Completed")
+    ? "completed"
+    : "";
   return (
     <div>
       <Card>
-        <CardHeader title={title} />
-        <CardContent>
+        <CardHeader
+          className={`card-header font-header-${type}`}
+          title={title}
+        />
+        <CardContent className="card-content">
           {taskList.map((itm) => (
             <TaskItem
               prio={itm.priority}

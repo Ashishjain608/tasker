@@ -14,6 +14,7 @@ const Main = () => {
   const [highTasks, setHighTasks] = useState([]);
   const [mediumTasks, setMediumTasks] = useState([]);
   const [lowTasks, setLowTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
 
   const fetchTasks = useCallback(() => {
     TaskHandler.getAllTasks()
@@ -32,7 +33,8 @@ const Main = () => {
   const setTasks = (data) => {
     let highAr = [],
       midArr = [],
-      lowArr = [];
+      lowArr = [],
+      completedArr = [];
     for (let i = 0; i < data.length; i++) {
       let itm = data[i];
       if (itm.priority === "high") {
@@ -41,11 +43,14 @@ const Main = () => {
         midArr.push(itm);
       } else if (itm.priority === "low") {
         lowArr.push(itm);
+      } else if (itm.completed) {
+        completedArr.push(itm);
       }
     }
     setHighTasks(highAr);
     setMediumTasks(midArr);
     setLowTasks(lowArr);
+    setCompletedTasks(completedArr);
   };
 
   const onAddTask = () => setShowModal(true);
@@ -73,10 +78,15 @@ const Main = () => {
         <h3>Tasker</h3>
       </div>
       {showError && <Alert severity="error">{GENERIC_ERROR}</Alert>}
-      <div>
+      <div className="card-container">
         <TaskCard taskList={highTasks} title="High Prio" />
         <TaskCard taskList={mediumTasks} title="Medium Prio" />
         <TaskCard taskList={lowTasks} title="Low Prio" />
+        <TaskCard
+          className="completed-card"
+          taskList={completedTasks}
+          title="Completed Tasks"
+        />
       </div>
       <IconButton
         onClick={onAddTask}
