@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardHeader, CardContent } from "@material-ui/core";
 import TaskItem from "./TaskItem";
+import TaskRow from "./TaskRow";
 
 const TaskCard = (props) => {
   const { title, taskList } = props;
@@ -22,13 +23,15 @@ const TaskCard = (props) => {
           title={title}
         />
         <CardContent className="card-content">
-          {taskList.map((itm) => (
-            <TaskItem
-              prio={itm.priority}
-              deadlineDate={itm.deadlineDate}
-              description={itm.description}
-              createdAt={itm.createdAt}
-            />
+          {taskList.map((itm, i) => (
+            <TaskRow i={i}>
+              <TaskItem
+                prio={itm.priority}
+                deadlineDate={itm.deadlineDate}
+                description={itm.description}
+                createdAt={itm.createdAt}
+              />
+            </TaskRow>
           ))}
         </CardContent>
       </Card>

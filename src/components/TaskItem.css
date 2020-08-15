@@ -1,13 +1,26 @@
 .primary-line {
   justify-content: space-around;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   align-items: center;
 }
 
+.task-item-img {
+  grid-column: 1/2;
+}
+
+.task-item-text {
+  grid-column: 2/10;
+}
+
+.tas-item-btn {
+  grid-column: 10/11;
+}
+
 .secondary-line {
-  display: flex;
-  justify-content: space-around;
-  font-size: small;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 11px;
   color: #065b9e;
 }
 

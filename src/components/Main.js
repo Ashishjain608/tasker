@@ -30,6 +30,19 @@ const Main = () => {
     fetchTasks();
   }, [fetchTasks]);
 
+  const handleKeyDown = useCallback((e) => {
+    if (e.keyCode === 78 && e.ctrlKey) {
+      onAddTask();
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
   const setTasks = (data) => {
     let highAr = [],
       midArr = [],
@@ -73,7 +86,7 @@ const Main = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth="xl">
       <div className="title">
         <h3>Tasker</h3>
       </div>

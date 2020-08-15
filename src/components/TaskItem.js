@@ -26,19 +26,33 @@ const TaskItem = (props) => {
       : prio === "low"
       ? lowPrioIcon
       : "";
+
+  const getDateString = (time) => {
+    const date = new Date(time);
+    const dateStr = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    return dateStr;
+  };
+
   return (
     <div ref={drag} className="task-item">
       <div className="primary-line">
-        <img width="25px" src={taskIcon} alt="prio icon" />
-        {description}
-        <IconButton>
+        <img
+          className="task-item-img"
+          width="25px"
+          src={taskIcon}
+          alt="prio icon"
+        />
+        <span className="task-item-text">{description}</span>
+        <IconButton className="task-item-btn">
           <MoreVertIcon />
         </IconButton>
       </div>
       <div className="secondary-line">
-        <span>Created on: {new Date(createdAt).toDateString()}</span>
+        <span>Created on: {getDateString(createdAt)}</span>
         {deadlineDate && (
-          <span>Deadline: {new Date(deadlineDate).toDateString()}</span>
+          <span>Deadline: {getDateString(deadlineDate)}</span>
         )}
       </div>
     </div>
